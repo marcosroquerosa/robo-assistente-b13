@@ -35,6 +35,8 @@ O celular é a interface: mostra o rosto e cuida do microfone, da câmera e do a
 | Cabo USB | De dados, ligado à porta USB da B13 | Leva os dados entre os dois e abre o `localhost` no celular |
 | Rede | Cabo de rede, ou adaptador Wi-Fi USB compatível | Dá acesso à internet para a IA e as imagens |
 
+A BTV B13 usada neste projeto foi doada pela Receita Federal ao IFPR. A TV box é resultado da apreensão de equipamentos não permitidos no Brasil, e este projeto dá a ela um novo uso educacional.
+
 No Debian, o Wi-Fi interno, o Bluetooth interno e o som pelo HDMI da B13 não funcionam. O robô não depende deles: o som sai do celular, e a rede pode ser por cabo ou por um adaptador USB.
 
 ## O que muda em relação ao projeto original
