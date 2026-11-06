@@ -6,6 +6,8 @@ Esta é a versão do Byte para a TV box **BTV B13** com Debian 13, adaptada do p
 
 A voz, o entendimento da fala e o reconhecimento de rostos rodam na própria B13, sem internet. A internet é usada para a IA que pensa nas respostas e para buscar imagens.
 
+![Foto do Robô Byte na BTV B13](foto-robo-b13.jpg)
+
 ## O que ele faz
 
 - **Conversa por voz:** acorda com "ei robô" ou com um toque na tela, responde em voz alta e mostra legendas.
