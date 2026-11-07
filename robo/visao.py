@@ -28,6 +28,14 @@ import numpy as np
 
 from robo import config
 
+# O OpenCV novo avisa "setPreferableTarget ... not supported by the new graph engine"
+# ao carregar os modelos de rosto. É inofensivo (tudo roda no processador), então
+# mostramos só erros de verdade.
+try:
+    cv2.utils.logging.setLogLevel(cv2.utils.logging.LOG_LEVEL_ERROR)
+except AttributeError:
+    pass
+
 
 def normalizar(texto: str) -> str:
     """Minúsculas e sem acentos: "Júlia" -> "julia" (para comparar nomes e frases)."""

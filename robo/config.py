@@ -12,7 +12,8 @@ NOME_DO_ROBO = "Byte"
 # Palavras que acordam o robô. Use palavras em português comum:
 # o reconhecedor só entende palavras que estão no dicionário dele.
 # "eu robô" está aqui porque o Vosk muitas vezes ouve assim quando dizemos "ei robô".
-PALAVRAS_DE_ATIVACAO = ["ei robô", "eu robô", "oi robô", "olá robô","byte", "ei robo", "oi robo", "oi byte"]
+# Escreva com acento ("robô"): sem acento, o Vosk não conhece a palavra e a ignora.
+PALAVRAS_DE_ATIVACAO = ["ei robô", "eu robô", "oi robô", "olá robô", "byte", "oi byte"]
 
 # ---------------- Ouvido ----------------
 MODELO_VOSK = "modelos/vosk-model-small-pt-0.3"   # só para a palavra de ativação

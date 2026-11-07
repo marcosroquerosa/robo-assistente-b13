@@ -57,8 +57,12 @@ class Cerebro:
     def _ler_chave_web(self):
         arquivo = getattr(config, "WEB_ARQUIVO_DA_CHAVE", "chave_web.txt")
         if not os.path.exists(arquivo):
-            print(f"[cérebro] atenção: não achei o arquivo {arquivo} com a chave da IA da web; "
-                  "vou usar o cérebro local.")
+            if getattr(config, "WEB_SE_FALHAR_USAR_LOCAL", False):
+                print(f"[cérebro] atenção: não achei o arquivo {arquivo} com a chave da IA da web; "
+                      "vou usar o cérebro local.")
+            else:
+                print(f"[cérebro] atenção: não achei o arquivo {arquivo} com a chave da IA da web. "
+                      "Sem ela, o robô não consegue responder. Salve a chave nesse arquivo e reinicie.")
             return None
         with open(arquivo, encoding="utf-8") as f:
             return f.read().strip()
@@ -176,6 +180,10 @@ class Cerebro:
                     yield "Estou sem internet agora. Tente de novo daqui a pouco."
                     return
                 print("[cérebro] usando o cérebro local desta vez")
+        elif self.modo == "web" and not getattr(config, "WEB_SE_FALHAR_USAR_LOCAL", True):
+            # sem chave e sem cérebro local (caso da B13): avisa em vez de procurar o Ollama
+            yield "Ainda não tenho a chave da inteligência artificial. Peça para o professor configurar."
+            return
         yield from self._local(self._sem_marcas(mensagens))
 
     def _olhar(self, mensagens, foto: bytes, instrucao=None):

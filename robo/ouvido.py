@@ -29,13 +29,29 @@ def medir_volume(pedaco: bytes) -> float:
     return float(np.sqrt(np.mean(amostras ** 2))) if len(amostras) else 0.0
 
 
+def frases_conhecidas(modelo) -> list:
+    """Só as palavras de ativação que o Vosk conhece. Uma palavra fora do vocabulário
+    (ex.: "robo", sem acento) não seria ouvida e só gera um aviso no terminal."""
+    if not hasattr(modelo, "find_word"):  # Vosk antigo: usa a lista como está
+        return list(config.PALAVRAS_DE_ATIVACAO)
+    conhecidas, ignoradas = [], []
+    for frase in config.PALAVRAS_DE_ATIVACAO:
+        if all(modelo.find_word(palavra) != -1 for palavra in frase.split()):
+            conhecidas.append(frase)
+        else:
+            ignoradas.append(frase)
+    if ignoradas:
+        print(f"[ouvido] o Vosk não conhece estas palavras de ativação e vai ignorá-las: {', '.join(ignoradas)}")
+    return conhecidas or list(config.PALAVRAS_DE_ATIVACAO)
+
+
 class Ouvido:
     def __init__(self):
         print("[ouvido] carregando o Vosk...")
         modelo = Model(config.MODELO_VOSK)
         # A "gramática" diz ao Vosk para procurar só as palavras de ativação.
         # "[unk]" significa "qualquer outra coisa".
-        gramatica = json.dumps(config.PALAVRAS_DE_ATIVACAO + ["[unk]"], ensure_ascii=False)
+        gramatica = json.dumps(frases_conhecidas(modelo) + ["[unk]"], ensure_ascii=False)
         self.reconhecedor = KaldiRecognizer(modelo, config.TAXA_DE_AMOSTRAGEM, gramatica)
         self.modo = "dormindo"
         self.audio_gravado = bytearray()
