@@ -53,6 +53,8 @@ Esta versão precisa da chave para conversar. Se a internet cair, o robô avisa 
 
 ## 5. Testar à mão
 
+Antes, configure o celular seguindo o [CONFIGURAR-CELULAR.md](CONFIGURAR-CELULAR.md)
+
 1. Ligue o celular na B13 pelo cabo e aceite "Permitir depuração USB", marcando "Sempre permitir deste computador".
 2. Confira: `adb devices` deve mostrar um código seguido de `device`. Se a lista vier vazia, veja "Se der problema", no fim deste guia.
 3. Ligue o robô:
