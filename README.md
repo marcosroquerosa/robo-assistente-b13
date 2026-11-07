@@ -88,6 +88,8 @@ Para buscar imagens, coloque seu e-mail em `IMAGENS_CONTATO`, em `robo/config.py
 
 O passo a passo completo está em [LEIA-ME-B13.md](LEIA-ME-B13.md).
 
+A configuração do celular está em [CONFIGURAR-CELULAR.md](CONFIGURAR-CELULAR.md)
+
 ## Como usar
 
 **Para testar:** ligue o celular no cabo, rode o comando abaixo e abra `http://localhost:8000` no Chrome do celular. Depois, toque na tela e permita o microfone e a câmera.
