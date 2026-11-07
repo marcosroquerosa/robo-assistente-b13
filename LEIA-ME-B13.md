@@ -54,7 +54,7 @@ Esta versão precisa da chave para conversar. Se a internet cair, o robô avisa 
 ## 5. Testar à mão
 
 1. Ligue o celular na B13 pelo cabo e aceite "Permitir depuração USB", marcando "Sempre permitir deste computador".
-2. Confira: `adb devices` deve mostrar um código seguido de `device`.
+2. Confira: `adb devices` deve mostrar um código seguido de `device`. Se a lista vier vazia, veja "Se der problema", no fim deste guia.
 3. Ligue o robô:
    ```bash
    ./iniciar.sh
@@ -191,7 +191,13 @@ O padrão é o Parakeet v3 multilíngue `int8`. Se ele errar muito em português
 ## Se der problema
 
 - **`Sem conexão com o computador` na tela:** confira se o terminal mostra `Byte está no ar!`, feche a aba antiga e abra `http://localhost:8000` de novo. Rode `adb reverse --list`. Se estiver vazio, rode `adb reverse tcp:8000 tcp:8000`.
-- **`adb devices` mostra `no permissions`:** rode `./ativar_modo_automatico.sh`, depois desconecte e reconecte o cabo.
+- **`adb devices` vem vazio ou mostra `no permissions`** (e o `iniciar.sh` mostra `adb: error: no devices/emulators found`): instale as permissões do USB para celulares Android de qualquer fabricante:
+  ```bash
+  apt install -y android-sdk-platform-tools-common
+  udevadm control --reload-rules
+  udevadm trigger
+  ```
+  Depois, desconecte e reconecte o cabo, aceite "Permitir depuração USB" no celular e confira com `adb kill-server && adb devices`. Se continuar vazio, rode `lsusb` com o celular plugado. Se o celular não aparecer, troque por um cabo de dados (não só de carga) e teste a outra porta USB da B13. Se aparecer, revise a depuração USB no celular e escolha "Transferência de arquivos" na notificação do USB.
 - **Erro do pip ao instalar as bibliotecas:** algumas bibliotecas podem ainda não ter versão pronta para o Python mais novo do sistema.
 - **A tela fica na vertical:** ajuste `user_rotation` em `ferramentas/automatico.py`.
 - **`Killed` no log:** a memória acabou. Rode `free -h` e reduza a visão como na seção 7.

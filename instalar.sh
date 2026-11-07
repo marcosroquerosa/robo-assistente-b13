@@ -10,7 +10,12 @@ SUDO=""
 
 echo "[1/3] Instalando programas do sistema..."
 $SUDO apt update
-$SUDO apt install -y python3-venv python3-pip adb unzip
+$SUDO apt install -y python3-venv python3-pip adb android-sdk-platform-tools-common unzip
+
+# Permissão do USB para celulares Android de qualquer fabricante
+# (o pacote android-sdk-platform-tools-common traz as regras do udev)
+$SUDO udevadm control --reload-rules || true
+$SUDO udevadm trigger || true
 
 echo "[2/3] Criando o ambiente do robô (.venv) e instalando as bibliotecas..."
 python3 -m venv .venv
